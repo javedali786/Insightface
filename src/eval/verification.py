@@ -182,7 +182,7 @@ def evaluate(embeddings, actual_issame, nrof_folds=10, pca = 0):
     return tpr, fpr, accuracy, val, val_std, far
 
 def load_bin(path, image_size):
-  bins, issame_list = pickle.load(open(path, 'rb'))
+  bins, issame_list = pickle.load(open(path, 'rb'),encoding = 'bytes')
   data_list = []
   for flip in [0,1]:
     data = nd.empty((len(issame_list)*2, 3, image_size[0], image_size[1]))
@@ -507,8 +507,8 @@ if __name__ == '__main__':
 
   parser = argparse.ArgumentParser(description='do verification')
   # general
-  parser.add_argument('--data-dir', default='', help='')
-  parser.add_argument('--model', default='../model/softmax,50', help='path to load model.')
+  parser.add_argument('--data-dir', default='../../datasets/', help='')
+  parser.add_argument('--model', default='../../models/model-symbol', help='path to load model.')
   parser.add_argument('--target', default='lfw,cfp_ff,cfp_fp,agedb_30', help='test targets.')
   parser.add_argument('--gpu', default=0, type=int, help='gpu id')
   parser.add_argument('--batch-size', default=32, type=int, help='')
