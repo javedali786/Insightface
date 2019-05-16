@@ -76,12 +76,6 @@ Please check [Dataset-Zoo](https://github.com/deepinsight/insightface/wiki/Datas
 
 ### Train
 
-1. Install `MXNet` with GPU support (Python 2.7).
-
-```
-pip install mxnet-cu90
-```
-
 2. Clone the InsightFace repository. We call the directory insightface as *`INSIGHTFACE_ROOT`*.
 
 ```
