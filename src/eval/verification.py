@@ -508,9 +508,9 @@ if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='do verification')
   # general
   parser.add_argument('--data-dir', default='../../datasets/', help='')
-  parser.add_argument('--model', default='../../models/model-symbol', help='path to load model.')
-  parser.add_argument('--target', default='lfw,cfp_ff,cfp_fp,agedb_30', help='test targets.')
-  parser.add_argument('--gpu', default=1, type=int, help='gpu id')
+  parser.add_argument('--model', default='../../models/model', help='path to load model.')
+  parser.add_argument('--target', default='lfw', help='test targets.')
+  parser.add_argument('--gpu', default=0, type=int, help='gpu id')
   parser.add_argument('--batch-size', default=32, type=int, help='')
   parser.add_argument('--max', default='', type=str, help='')
   parser.add_argument('--mode', default=0, type=int, help='')
@@ -521,7 +521,8 @@ if __name__ == '__main__':
   print('face_image_load_done')
   image_size = prop.image_size
   print('image_size', image_size)
-  ctx = mx.gpu(args.gpu)
+#  ctx = mx.gpu(args.gpu)
+  ctx = mx.cpu()
   nets = []
   vec = args.model.split(',')
   prefix = args.model.split(',')[0]
@@ -557,7 +558,9 @@ if __name__ == '__main__':
     #model.bind(data_shapes=[('data', (args.batch_size, 3, image_size[0], image_size[1]))], label_shapes=[('softmax_label', (args.batch_size,))])
     model.bind(data_shapes=[('data', (args.batch_size, 3, image_size[0], image_size[1]))])
     model.set_params(arg_params, aux_params)
+    print(model)
     nets.append(model)
+    print(nets)
   time_now = datetime.datetime.now()
   diff = time_now - time0
   print('model loading time', diff.total_seconds())
@@ -571,17 +574,19 @@ if __name__ == '__main__':
       data_set = load_bin(path, image_size)
       ver_list.append(data_set)
       ver_name_list.append(name)
-
+  print('entering mode')
   if args.mode==0:
     for i in range(len(ver_list)):
       results = []
+      print(nets)
       for model in nets:
         acc1, std1, acc2, std2, xnorm, embeddings_list = test(ver_list[i], model, args.batch_size, args.nfolds)
         print('[%s]XNorm: %f' % (ver_name_list[i], xnorm))
         print('[%s]Accuracy: %1.5f+-%1.5f' % (ver_name_list[i], acc1, std1))
         print('[%s]Accuracy-Flip: %1.5f+-%1.5f' % (ver_name_list[i], acc2, std2))
         results.append(acc2)
-      print('Max of [%s] is %1.5f' % (ver_name_list[i], np.max(results)))
+      #print('Max of [%s] is %1.5f' % (ver_name_list[i], np.max(results)))
+      print(results)
   elif args.mode==1:
     model = nets[0]
     test_badcase(ver_list[0], model, args.batch_size, args.target)
