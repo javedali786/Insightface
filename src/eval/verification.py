@@ -510,7 +510,7 @@ if __name__ == '__main__':
   parser.add_argument('--data-dir', default='../../datasets/', help='')
   parser.add_argument('--model', default='../../models/model-symbol', help='path to load model.')
   parser.add_argument('--target', default='lfw,cfp_ff,cfp_fp,agedb_30', help='test targets.')
-  parser.add_argument('--gpu', default=0, type=int, help='gpu id')
+  parser.add_argument('--gpu', default=1, type=int, help='gpu id')
   parser.add_argument('--batch-size', default=32, type=int, help='')
   parser.add_argument('--max', default='', type=str, help='')
   parser.add_argument('--mode', default=0, type=int, help='')
@@ -518,6 +518,7 @@ if __name__ == '__main__':
   args = parser.parse_args()
 
   prop = face_image.load_property(args.data_dir)
+  print('face_image_load_done')
   image_size = prop.image_size
   print('image_size', image_size)
   ctx = mx.gpu(args.gpu)
@@ -545,6 +546,7 @@ if __name__ == '__main__':
     epochs = [int(x) for x in vec[1].split('|')]
   print('model number', len(epochs))
   time0 = datetime.datetime.now()
+  print (epochs)
   for epoch in epochs:
     print('loading',prefix, epoch)
     sym, arg_params, aux_params = mx.model.load_checkpoint(prefix, epoch)
