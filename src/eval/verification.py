@@ -521,8 +521,8 @@ if __name__ == '__main__':
   print('face_image_load_done')
   image_size = prop.image_size
   print('image_size', image_size)
-#  ctx = mx.gpu(args.gpu)
-  ctx = mx.cpu()
+  ctx = mx.gpu(args.gpu)
+#  ctx = mx.cpu()
   nets = []
   vec = args.model.split(',')
   prefix = args.model.split(',')[0]
