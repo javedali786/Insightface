@@ -12,8 +12,6 @@ import sklearn
 import datetime
 import numpy as np
 import cv2
-from PIL import Image
-from io import BytesIO
 
 import mxnet as mx
 from mxnet import ndarray as nd
@@ -171,6 +169,8 @@ class FaceImageIter(io.DataIter):
       return img
 
     def compress_aug(self, img):
+      from PIL import Image
+      from io import BytesIO
       buf = BytesIO()
       img = Image.fromarray(img.asnumpy(), 'RGB')
       q = random.randint(2, 20)

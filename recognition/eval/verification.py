@@ -180,7 +180,12 @@ def evaluate(embeddings, actual_issame, nrof_folds=10, pca = 0):
     return tpr, fpr, accuracy, val, val_std, far
 
 def load_bin(path, image_size):
-  bins, issame_list = pickle.load(open(path, 'rb'))
+  try:
+    with open(path, 'rb') as f:
+      bins, issame_list = pickle.load(f) #py2
+  except UnicodeDecodeError as e:
+    with open(path, 'rb') as f:
+      bins, issame_list = pickle.load(f, encoding='bytes') #py3
   data_list = []
   for flip in [0,1]:
     data = nd.empty((len(issame_list)*2, 3, image_size[0], image_size[1]))

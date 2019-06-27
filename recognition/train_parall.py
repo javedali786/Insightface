@@ -62,6 +62,7 @@ def parse_args():
   parser.add_argument('--per-batch-size', type=int, default=default.per_batch_size, help='batch size in each context')
   parser.add_argument('--kvstore', type=str, default=default.kvstore, help='kvstore setting')
   parser.add_argument('--worker-id', type=int, default=0, help='worker id for dist training, starts from 0')
+  parser.add_argument('--extra-model-name', type=str, default='', help='extra model name')
   args = parser.parse_args()
   return args
 
@@ -133,7 +134,10 @@ def train_net(args):
       print('use cpu')
     else:
       print('gpu num:', len(ctx))
-    prefix = os.path.join(args.models_root, '%s-%s-%s'%(args.network, args.loss, args.dataset), 'model')
+    if len(args.extra_model_name)==0:
+      prefix = os.path.join(args.models_root, '%s-%s-%s'%(args.network, args.loss, args.dataset), 'model')
+    else:
+      prefix = os.path.join(args.models_root, '%s-%s-%s-%s'%(args.network, args.loss, args.dataset, args.extra_model_name), 'model')
     prefix_dir = os.path.dirname(prefix)
     print('prefix', prefix)
     if not os.path.exists(prefix_dir):

@@ -9,6 +9,10 @@ The code of InsightFace is released under the MIT License. There is no limitatio
 
 The training data containing the annotation (and the models trained with these data) are available for non-commercial research purposes only.
 
+## CVer Presentation 
+
+[Slides](https://pan.baidu.com/s/1v9fFHBJ8Q9Kl9Z6GwhbY6A)
+ 
 ## ArcFace Video Demo
 
 [![ArcFace Demo](https://github.com/deepinsight/insightface/blob/master/resources/facerecognitionfromvideo.PNG)](https://www.youtube.com/watch?v=y-D1tReryGA&t=81s)
@@ -19,7 +23,7 @@ Please click the image to watch the Youtube video. For Bilibili users, click [he
 
 **`2019.04.30`**: Our Face detector ([RetinaFace](https://github.com/deepinsight/insightface/tree/master/RetinaFace)) obtains state-of-the-art results on [the WiderFace dataset](http://shuoyang1213.me/WIDERFACE/WiderFace_Results.html).
 
-**`2019.04.14`**: We will launch a [Light-weight Face Recognition challenge/workshop](https://ibug.doc.ic.ac.uk/resources/lightweight-face-recognition-challenge-workshop/) on ICCV 2019.
+**`2019.04.14`**: We will launch a [Light-weight Face Recognition challenge/workshop](https://github.com/deepinsight/insightface/tree/master/iccv19-challenge) on ICCV 2019.
 
 **`2019.04.04`**: Arcface achieved state-of-the-art performance (7/109) on the NIST Face Recognition Vendor Test (FRVT) (1:1 verification)
 [report](https://www.nist.gov/sites/default/files/documents/2019/04/04/frvt_report_2019_04_04.pdf) (name: Imperial-000 and Imperial-001). Our solution is based on [MS1MV2+DeepGlintAsian, ResNet100, ArcFace loss]. 
